@@ -5,7 +5,7 @@ import csv
 import json
 
 app = Flask(__name__)
-mongodb = MongoClient('localhost').lottery_db
+mongodb = MongoClient('mongodb').lottery_db
 documentid = ''
 
 @app.route("/table", methods=["GET"])
