@@ -69,7 +69,7 @@ body {
       padding: 0;
 
       position: absolute;
-      top: 50%; left: 50%;
+      top: 70%; left: 50%;
       transform: translate(-50%, -50%);
     }
     #timer li.dot {
@@ -123,9 +123,9 @@ body {
               </tr>
             {% endif %}
              <tr>
-               <td id=hero_{{ item['id'] }}> {{ item['Name'] }}</td>
+               <td id=hero_{{ item['id'] }}>  {{ item['Name'] }} </td>
            {% else %}
-              <td id=hero_{{ item['id'] }}> {{ item['Name'] }}</td>
+              <td id=hero_{{ item['id'] }}>  {{ item['Name'] }} </td>
            {% endif %}
        {% endfor %}
       </table>
@@ -176,7 +176,7 @@ var findLucky = function (lucky,back) {
   back = document.getElementById(lucky).style.background | ''
   document.getElementById(lucky).style.background = '#FC7D41';
     if (stop){
-      document.getElementById('timer').innerHTML = '<li><span>Победитель:</span></li><li><span>'+ lst[num]['Email'] +'</span></li>'
+      document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] + ' - ' + lst[num]['Email'] +'</span></li>'
       return
     }
   setTimeout(function () {

@@ -13,6 +13,8 @@ table {
   display: inline;
   text-align: center;
   vertical-align: middle;
+  left: 20%;
+  top: 33%;
 }
 
 body {
@@ -50,7 +52,7 @@ body {
    height: 248px;
    display: block;
    position: absolute;
-   top: 50%; left: 50%;
+   top: 70%; left: 50%;
    margin-left: -(550px / 2);
    margin-top: -(248px / 2);
    color: white;
