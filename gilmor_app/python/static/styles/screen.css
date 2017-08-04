@@ -20,26 +20,16 @@ body {
    color: white;
 }
 
-
-.upload-file {
-  position: relative;
-	display: inline-block;
-}
 .upload-file-input {
   position: relative;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  font-size: 1;
   width:0;
   height: 100%;
   opacity: 0;
+  float:left;
 }
 
 .upload-file-label {
-    display: block;
-    padding: 1em 2em;
+    display: inline-block;
     color: #fff;
     background: #222;
     border-radius: .4em;
@@ -207,24 +197,22 @@ body {
 /*Red
 ==========================*/
 .ph-btn-red {
-    background-color: #008CBA !important;
-    border-color: #EA4343 !important;
-    float: left;
+    background-color: #E83131 !important;
+    border-color: #E83131 !important;
 }
 }
 .ph-btn-blue {
-    background-color: #ED5A5A !important;
-    border-color: #EA4343 !important;
-    float: left;
-}
+    background-color: #008CBA !important;
+    border-color: #008CBA !important;
+
 }
 .ph-btn-red:hover, .ph-btn-red:focus, .ph-btn-red:active {
-    background: none repeat scroll 0 0 #EB4848 !important;
+    background: none repeat scroll 0 0 #E83131 !important;
     border-color: #E83131 !important;
 }
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
-    background: none repeat scroll 0 0 #ED5A5A !important;
-    border-color: #ED5A5A !important;
+    background: none repeat scroll 0 0 #008CBA !important;
+    border-color: #008CBA !important;
 }
 
 
