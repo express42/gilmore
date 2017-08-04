@@ -1,7 +1,7 @@
 version: "2.1"
 services:
-  lottery_app:
-    build: ./simple_app
+  gilmor_app:
+    build: ./gilmor_app
     links:
       - mongodb
     ports:
