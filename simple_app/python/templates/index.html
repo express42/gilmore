@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/screen.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <meta charset="UTF-8">
+  <title>simple lottery_app</title>
+  <style>
+  body { margin: 0; }
+
+  header {
+   display: block;
+   background: #83D2E4;
+   height: 110px;
+   text-align: center;
+  }
+.participants {
+  display: inline-block;
+  border: 1px solid red;
+  text-align: center;
+  margin: 0 auto;
+
+
+}
+.table {
+  margin: 0 auto;
+  float: none;
+
+  text-align: center;
+  position: relative;
+}
+
+.otus {
+    text-align: center;
+    display: inline-block;
+    margin-left: 9em;
+    margin-right: 9em;
+  }
+.express {
+  display: inline;
+    text-align: right;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+  }
+.devops {
+    display: inline-block;
+    text-align: left;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+  }
+td {
+  font-size: 15px;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #F6F6F6;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #463f67;
+}
+    /* Timer */
+    #timer {
+      margin: 0;
+      padding: 0;
+
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #timer li.dot {
+        padding-top: 8px;
+        font-size: 32px;
+    }
+    #timer li {
+        display: inline-block;
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 12px;
+        vertical-align: top;
+    }
+    #timer li span {
+        display: block;
+        font-size: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-bg">
+    <a class="devops" href="http://devopsru.com/">
+      <img height=100px src="/static/images/logo-small.png" >
+    </a>
+    <a class="otus" href="https://otus.ru/">
+      <img height=70px width=300 src="/static/images/otus.png">
+    </a>
+    <a class="express" href="https://express42.com/" >
+      <img height=90px src="/static/images/express42ship.png">
+    </a>
+  </header>
+  <div>
+    <ul id="timer"></ul>
+  </div>
+
+    <form class="ph-container" action="/" method="POST" enctype="multipart/form-data">
+        <div class=upload-file>
+          <label class="upload-file-label" for="file">Загрузите список</label>
+          <input class="upload-file-input" type="file" name="file">
+        </div>
+          <button id="uploadbutton" class='ph-button ph-btn-blue' type="submit">Загрузить</button>
+          <a><input id="button" type="button" value="Разыграть" onclick="roulette()" class='ph-button ph-btn-red'></a>
+    </form>
+<div style=participants>
+    {% if my_list %}
+      <table>
+       {% for item in my_list %}
+          {% if loop.index0 % 8 == 0 %}
+            {% if loop.index0 != 0 %}
+              </tr>
+            {% endif %}
+             <tr>
+               <td id=hero_{{ item['id'] }}> {{ item['Name'] }}</td>
+           {% else %}
+              <td id=hero_{{ item['id'] }}> {{ item['Name'] }}</td>
+           {% endif %}
+       {% endfor %}
+      </table>
+      <script type="text/javascript">
+        var lst = ( {{ my_list|tojson|safe }} )
+      </script>
+    {% endif %}
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+      $("#uploadbutton").click(function () {
+          var filename = $("#file").val();
+          $.ajax({
+              type: "POST",
+              url: "/upload",
+              data: {
+                  file: filename
+              },
+              success: function () {
+                  alert("Data Uploaded: ");
+              }
+          });
+      });
+  });
+</script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+// var getEndDate = new Date('02/22/2019 11:59 PM');
+function roulette () {
+if ( ! lst ) {
+  return
+}
+var max = 30
+var min = 80
+var getStartDate = new Date();
+var period = (Math.random() * (max - min) + min) * 1000;
+var stop = false
+var slowing = 0
+var lucky_number = ''
+
+var findLucky = function (lucky,back) {
+  if ( lucky ) {
+    document.getElementById(lucky).style.background = back;
+  }
+  num = Math.floor(Math.random() * (lst.length) )
+  lucky = 'hero_' + num
+  back = document.getElementById(lucky).style.background | ''
+  document.getElementById(lucky).style.background = '#FC7D41';
+    if (stop){
+      document.getElementById('timer').innerHTML = '<li><span>Победитель:</span></li><li><span>'+ lst[num]['Email'] +'</span></li>'
+      return
+    }
+  setTimeout(function () {
+    findLucky(lucky,back)
+  }, 100+slowing)
+}
+document.getElementById('timer').innerHTML = '<li><span>'+ 0 + '</span>Minutes</li><li class="dot">:</li>';
+document.getElementById('timer').innerHTML += '<li><span>'+ 0 +'</span>Seconds</li>';
+function timerCountdown(){
+
+  var getSeconds = 1000;
+  var getMinutes = getSeconds*60;
+  var getHours = getMinutes*60;
+  var getNowDate = new Date();
+  var getSeparate = getStartDate.getTime() + period - getNowDate.getTime();
+    slowing =  (period - getSeparate)*0.005
+    if ( getSeparate < 0 ){
+        clearInterval(timer);
+        stop = true
+        return false;
+    }
+
+    var seconds = Math.floor((getSeparate%getMinutes)/getSeconds);
+    var minutes = Math.floor((getSeparate%getHours)/getMinutes);
+    document.getElementById('timer').innerHTML = '<li><span>'+ minutes + '</span>Minutes</li><li class="dot">:</li>';
+    document.getElementById('timer').innerHTML += '<li><span>'+ seconds +'</span>Seconds</li>';
+}
+timer = setInterval(timerCountdown, 1000);
+findLucky()
+document.getElementById("button").disabled = true;
+document.getElementById("uploadbutton").disabled = true;
+}
+</script>
+</html>
