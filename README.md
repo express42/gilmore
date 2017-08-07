@@ -18,12 +18,13 @@ $ docker-compose up
   * Ждать окончания таймера
   * Порадоваться или огорчиться
 
-### Состав
-  * [Docker](https://www.docker.com/) и [Docker-compose](https://docs.docker.com/compose/)
+### Технологии
+  * [Docker](https://www.docker.com/) - описание и создание образов с приложениями
+  * [Docker-compose](https://docs.docker.com/compose/) - описание и запуск всего проекта
   * Docker контейнер с приложением
-    * Веб-приложение на языке Python (фреймворк  [Flask](http://flask.pocoo.org/]), Jinja-шаблоны)
+    * Веб-приложение на языке Python (фреймворк  [Flask](http://flask.pocoo.org/]), Jinja-шаблоны) - веб-сервер, шаблонизатор html, взаимодействие с mongodb
     * Веб-страница - JavaScript, ajax, html, css
-  * Контейнер с базой данных mongodb
+  * Контейнер с базой данных mongodb - хранение списка участников
 
 ### Алгоритм
   Выбор победителя выполняется по следующему алгоритму:
