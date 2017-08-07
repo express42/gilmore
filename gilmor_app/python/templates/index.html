@@ -49,7 +49,8 @@
     /*margin-right: auto;*/
   }
 td {
-  font-size: 15px;
+  font-size: 13px;
+  width: auto;
 }
 html, body {
   height: 100%;
@@ -67,7 +68,8 @@ body {
     #timer {
       margin: 0;
       padding: 0;
-
+      background: #83D2E4;
+      opacity: .8;
       position: absolute;
       top: 70%; left: 50%;
       transform: translate(-50%, -50%);
@@ -118,7 +120,7 @@ body {
     {% if my_list %}
       <table>
        {% for item in my_list %}
-          {% if loop.index0 % 8 == 0 %}
+          {% if loop.index0 % 7 == 0 %}
             {% if loop.index0 != 0 %}
               </tr>
             {% endif %}
@@ -176,7 +178,7 @@ var findLucky = function (lucky,back) {
   back = document.getElementById(lucky).style.background | ''
   document.getElementById(lucky).style.background = '#FC7D41';
     if (stop){
-      document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] + ' - ' + lst[num]['Email'] +'</span></li>'
+      document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] +'</span></li>'
       return
     }
   setTimeout(function () {
