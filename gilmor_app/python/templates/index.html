@@ -157,8 +157,10 @@ body {
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 // var getEndDate = new Date('02/22/2019 11:59 PM');
+var winners = Array()
+
 function roulette () {
-if ( ! lst ) {
+if ( ! lst || lst.length - winners.length < 2) {
   return
 }
 var max = 30
@@ -170,15 +172,22 @@ var slowing = 0
 var lucky_number = ''
 
 var findLucky = function (lucky,back) {
+  document.getElementById("button").disabled = true;
+  document.getElementById("uploadbutton").disabled = true;
   if ( lucky ) {
     document.getElementById(lucky).style.background = back;
   }
-  num = Math.floor(Math.random() * (lst.length) )
+  do {
+    num = Math.floor(Math.random() * (lst.length) )
+  } while (winners.indexOf(num) > -1)
   lucky = 'hero_' + num
   back = document.getElementById(lucky).style.background | ''
   document.getElementById(lucky).style.background = '#FC7D41';
     if (stop){
+      winners.push(num)
       document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] +'</span></li>'
+      document.getElementById("button").disabled = false;
+      document.getElementById("uploadbutton").disabled = false;
       return
     }
   setTimeout(function () {
@@ -208,8 +217,6 @@ function timerCountdown(){
 }
 timer = setInterval(timerCountdown, 1000);
 findLucky()
-document.getElementById("button").disabled = true;
-document.getElementById("uploadbutton").disabled = true;
 }
 </script>
 </html>
