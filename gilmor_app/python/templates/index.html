@@ -170,6 +170,8 @@ var slowing = 0
 var lucky_number = ''
 
 var findLucky = function (lucky,back) {
+  document.getElementById("button").disabled = true;
+  document.getElementById("uploadbutton").disabled = true;
   if ( lucky ) {
     document.getElementById(lucky).style.background = back;
   }
@@ -179,6 +181,8 @@ var findLucky = function (lucky,back) {
   document.getElementById(lucky).style.background = '#FC7D41';
     if (stop){
       document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] +'</span></li>'
+      document.getElementById("button").disabled = false;
+      document.getElementById("uploadbutton").disabled = false;
       return
     }
   setTimeout(function () {
@@ -208,8 +212,6 @@ function timerCountdown(){
 }
 timer = setInterval(timerCountdown, 1000);
 findLucky()
-document.getElementById("button").disabled = true;
-document.getElementById("uploadbutton").disabled = true;
 }
 </script>
 </html>
