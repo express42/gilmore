@@ -8,6 +8,8 @@ services:
       - "5000:5000"
     depends_on:
       - mongodb
+    volumes:
+      - ./gilmor_app/python/:/src
     restart: on-failure
   mongodb:
     image: mongo:latest
