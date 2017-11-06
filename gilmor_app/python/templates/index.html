@@ -157,6 +157,8 @@ body {
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 // var getEndDate = new Date('02/22/2019 11:59 PM');
+var winners = Array()
+
 function roulette () {
 if ( ! lst ) {
   return
@@ -175,11 +177,14 @@ var findLucky = function (lucky,back) {
   if ( lucky ) {
     document.getElementById(lucky).style.background = back;
   }
-  num = Math.floor(Math.random() * (lst.length) )
+  do {
+    num = Math.floor(Math.random() * (lst.length) )
+  } while (winners.indexOf(num) > -1)
   lucky = 'hero_' + num
   back = document.getElementById(lucky).style.background | ''
   document.getElementById(lucky).style.background = '#FC7D41';
     if (stop){
+      winners.push(num)
       document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] +'</span></li>'
       document.getElementById("button").disabled = false;
       document.getElementById("uploadbutton").disabled = false;
