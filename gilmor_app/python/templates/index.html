@@ -160,7 +160,7 @@ body {
 var winners = Array()
 
 function roulette () {
-if ( ! lst ) {
+if ( ! lst || lst.length - winners.length < 2) {
   return
 }
 var max = 30
