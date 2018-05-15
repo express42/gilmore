@@ -213,6 +213,10 @@ var findLucky = function (win_num,possible_winners) {
     findLucky(win_num,possible_winners)
   }, 100+slowing)
 }
+function pad(num, size) {
+    var s = "000000000" + num;
+    return s.substr(s.length-size);
+}
 function timerCountdown(){
 
   var getSeconds = 1000;
@@ -229,8 +233,8 @@ function timerCountdown(){
 
     var seconds = Math.floor((getSeparate%getMinutes)/getSeconds);
     var minutes = Math.floor((getSeparate%getHours)/getMinutes);
-    document.getElementById('timer').innerHTML = '<li><span>'+ minutes + '</span>Minutes</li><li class="dot">:</li>';
-    document.getElementById('timer').innerHTML += '<li><span>'+ seconds +'</span>Seconds</li>';
+    document.getElementById('timer').innerHTML = '<li><span>'+ pad(minutes,2) + '</span>Minutes</li><li class="dot">:</li>';
+    document.getElementById('timer').innerHTML += '<li><span>'+ pad(seconds,2) +'</span>Seconds</li>';
 }
 timerCountdown()
 timer = setInterval(timerCountdown, 1000);
