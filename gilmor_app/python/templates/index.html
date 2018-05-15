@@ -158,14 +158,14 @@ body {
 <script>
 // var getEndDate = new Date('02/22/2019 11:59 PM');
 var winners = Array()
+var win_num = 10
 
 function roulette () {
-if ( ! lst || lst.length - winners.length < 2) {
+if ( ! lst || lst.length - winners.length < win_num + 1) {
   return
 }
 var max = 30
 var min = 80
-var win_num = 10
 var getStartDate = new Date();
 var period = (Math.random() * (max - min) + min) * 1000;
 var stop = false
