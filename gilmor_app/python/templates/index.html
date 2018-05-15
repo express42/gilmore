@@ -165,33 +165,52 @@ if ( ! lst || lst.length - winners.length < 2) {
 }
 var max = 30
 var min = 80
+var win_num = 10
 var getStartDate = new Date();
 var period = (Math.random() * (max - min) + min) * 1000;
 var stop = false
 var slowing = 0
 var lucky_number = ''
 
-var findLucky = function (lucky,back) {
+var findLucky = function (win_num,possible_winners) {
+
   document.getElementById("button").disabled = true;
   document.getElementById("uploadbutton").disabled = true;
-  if ( lucky ) {
-    document.getElementById(lucky).style.background = back;
+  if (possible_winners){
+    for (i = 0; i < possible_winners.length; i++) {
+      num = possible_winners[i];
+      lucky = 'hero_' + num;
+      document.getElementById(lucky).style.background = '';
+    }
   }
-  do {
-    num = Math.floor(Math.random() * (lst.length) )
-  } while (winners.indexOf(num) > -1)
-  lucky = 'hero_' + num
-  back = document.getElementById(lucky).style.background | ''
-  document.getElementById(lucky).style.background = '#FC7D41';
+  var possible_winners = Array();
+  for (i = 0; i < win_num; i++) {
+    var num
+    do {
+      num = Math.floor(Math.random() * (lst.length) )
+    } while (winners.indexOf(num) > -1 || possible_winners.indexOf(num) > -1 )
+    
+    possible_winners.push(num);
+  }
+  for (i = 0; i < possible_winners.length; i++) {
+    num = possible_winners[i];
+    lucky = 'hero_' + num;
+    document.getElementById(lucky).style.background = '#FC7D41';
+  }
     if (stop){
-      winners.push(num)
-      document.getElementById('timer').innerHTML = '<li><span>Счастливчик:</span></li><li><span>'+ lst[num]['Name'] +'</span></li>'
+      var winners_text = ''
+      for (i = 0; i < possible_winners.length; i++) {
+        num = possible_winners[i];
+        winners.push(num);
+        winners_text += '<li><span>'+ lst[num]['Name'] +'</span></li>';
+      }
+      document.getElementById('timer').innerHTML = '<li><span>Счастливчики:</span></li>' + winners_text;
       document.getElementById("button").disabled = false;
       document.getElementById("uploadbutton").disabled = false;
-      return
+      return;
     }
   setTimeout(function () {
-    findLucky(lucky,back)
+    findLucky(win_num,possible_winners)
   }, 100+slowing)
 }
 document.getElementById('timer').innerHTML = '<li><span>'+ 0 + '</span>Minutes</li><li class="dot">:</li>';
@@ -216,7 +235,7 @@ function timerCountdown(){
     document.getElementById('timer').innerHTML += '<li><span>'+ seconds +'</span>Seconds</li>';
 }
 timer = setInterval(timerCountdown, 1000);
-findLucky()
+findLucky(win_num)
 }
 </script>
 </html>
